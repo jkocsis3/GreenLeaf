@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="GreenLeaf.UWP.Views.TestPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GreenLeaf.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Source="/Assets/hamburger-512.png"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock 
+                                   Grid.Column="1"
+                                   Text="This is the name"
+                                   Style="{StaticResource NormalGreenTextBlock}"
+                       />
+            <TextBlock Grid.Row="1"
+                                   Grid.Column="1"    
+                       Text="This is the date planted"
+                                   Style="{StaticResource NormalGreenTextBlock}"/>
+        </Grid>
+
+    </Grid>
+</Page>

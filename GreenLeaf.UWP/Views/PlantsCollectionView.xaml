@@ -1,0 +1,91 @@
+﻿<Page
+    x:Class="GreenLeaf.UWP.Views.PlantsCollectionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converter="using:GreenLeaf.UWP.Utilities"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:GreenLeaf.UWP.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:GreenLeaf.Core.ViewModels"
+    xmlns:views="using:MvvmCross.Platforms.Uap.Views"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Name="thisPage"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <viewModels:PlantsCollectionViewModel />
+    </Page.DataContext>
+    <Page.Resources>
+        <converter:ValueToColorConvertor x:Key="colorConvertor" />
+        <converter:StringFormatConverter x:Key="StringFomatConverter" />
+        <converter:TemplateSelector x:Key="TemplateSelector"
+                                    AddTemplate="{StaticResource addTemplate}"
+                                    ItemTemplate="{StaticResource itemTemplate}"/>
+
+        <DataTemplate x:Key="itemTemplate">
+            <Grid Background="{Binding Strain.Genetics, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource colorConvertor}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Row="0"
+                       Grid.RowSpan="2"
+                       Grid.Column="0"
+                       Width="100"
+                       Height="100"
+                       Source="{Binding ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Margin="5"
+                           Style="{StaticResource SelectableListviewItemNameStyle}"
+                           Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           Margin="5"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource SelectableListViewItemdetailsStyle}"
+                           Text="{Binding DatePlanted, Converter={StaticResource StringFomatConverter}, ConverterParameter='Date Planted = {0:M/d/yy}'}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="addTemplate">
+            <Button Command="{Binding ElementName=thisPage, Path=DataContext.AddPlantCommand}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                <Button.Content>
+                    <TextBlock Style="{StaticResource NormalGreenTextBlock}" Text="ADD" />
+                </Button.Content>
+            </Button>
+        </DataTemplate>
+    </Page.Resources>
+    <RelativePanel>
+        <ListView HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  RelativePanel.AlignVerticalCenterWithPanel="True"
+                  RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.AlignRightWithPanel="True"
+                  ItemsSource="{Binding Plants, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
+                  ItemContainerStyle="{StaticResource StrainHorizontalItem}"
+                  ItemTemplateSelector="{StaticResource TemplateSelector}"
+                  SelectionChanged="OnPlantSelected">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <controls:UniformGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        <!--<Button Command="{Binding AddPlantCommand}" Style="{StaticResource NormalButtonStyle}">
+            <Button.Content>
+                <TextBlock Style="{StaticResource NormalGreenTextBlock}" Text="ADD" />
+            </Button.Content>
+        </Button>-->
+    </RelativePanel>
+
+</Page>

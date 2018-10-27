@@ -1,0 +1,40 @@
+﻿<UserControl
+    x:Class="GreenLeaf.UWP.Views.MenuControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GreenLeaf.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:GreenLeaf.Core.ViewModels"
+    mc:Ignorable="d"
+    Width="200">
+    <UserControl.DataContext>
+        <viewModel:NavigationViewModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                   Text="GreenLeaf&#x0a;Grow&#x0a;Journal"
+                   HorizontalTextAlignment="Center"
+                   Style="{StaticResource HeaderGreenTextBlock}"/>
+        <ListView Grid.Row="1" 
+                  SelectionChanged="ListView_SelectionChanged"
+                  ItemsSource="{Binding PagesList, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Text="{Binding}"
+                                   Padding="5,5,5,5"
+                                   Style="{StaticResource NormalGreenTextBlock}"/>                        
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListViewItemPresenter/>
+        </ListView>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,142 @@
+﻿<Page
+    x:Class="GreenLeaf.UWP.Views.Editable.EditablePlantView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converter="using:GreenLeaf.UWP.Utilities"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:GreenLeaf.UWP.Views.Editable"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converter:StringFormatConverter x:Key="StringFomatConverter" />
+        <converter:DateTimeToDateTimeOffsetConverter x:Key="DateTimeConverter" />
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height=".25*" />
+        </Grid.RowDefinitions>
+        <controls:UniformGrid Grid.Row="0" Columns="2">
+            <TextBlock
+                HorizontalAlignment="Right"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="Name" />
+            <TextBox
+                HorizontalAlignment="Stretch"
+                Style="{StaticResource NormalGreenTextBox}"
+                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock
+                HorizontalAlignment="Right"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="Strain" />
+            <ComboBox
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding Strains, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedStrain, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource ComboBoxStyle}" />
+            <TextBlock
+                HorizontalAlignment="Right"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="Schedule" />
+            <ComboBox
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding Schedules, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedSchedule, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource ComboBoxStyle}" />
+            <TextBlock
+                HorizontalAlignment="Right"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="Date Planted" />
+            <DatePicker Date="{Binding DatePlanted, Converter={StaticResource DateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        />
+            <TextBlock
+                HorizontalAlignment="Right"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="Garden" />
+            <ComboBox
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding Gardens, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedGarden, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource ComboBoxStyle}" />
+
+        </controls:UniformGrid>
+        <controls:UniformGrid
+            Grid.Row="1"
+            Columns="3"
+            Rows="4">
+            <TextBlock />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="Estimated" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="Actual" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="Begin Vegatative Stage" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="{Binding Plant.ProjectedVegCycle, Converter={StaticResource StringFomatConverter}, ConverterParameter=' {0:M/d/yy}', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <DatePicker HorizontalAlignment="Center" Date="{Binding VegDate, Converter={StaticResource DateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock
+                HorizontalAlignment="Center"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="Begin Flower Stage" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="{Binding Plant.ProjectedFlowerCycle, Converter={StaticResource StringFomatConverter}, ConverterParameter=' {0:M/d/yy}', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <DatePicker HorizontalAlignment="Center" Date="{Binding FlowerDate, Converter={StaticResource DateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock
+                HorizontalAlignment="Center"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="Harvest Date" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Style="{StaticResource NormalGreenTextBlock}"
+                Text="{Binding Plant.ProjectedHarvest, Converter={StaticResource StringFomatConverter}, ConverterParameter=' {0:M/d/yy}', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <DatePicker HorizontalAlignment="Center" Date="{Binding HarvestDate, Converter={StaticResource DateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </controls:UniformGrid>
+
+        <controls:UniformGrid
+            Grid.Row="2"
+            Columns="2"
+            Rows="1">
+            <Button
+                HorizontalAlignment="Center"
+                Command="{Binding CancelCommand}"
+                Style="{StaticResource NormalButtonStyle}">
+                <Button.Content>
+                    <TextBlock
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource NormalGreenTextBlock}"
+                        Text="Cancel"
+                        TextWrapping="Wrap" />
+                </Button.Content>
+            </Button>
+
+            <Button
+                HorizontalAlignment="Center"
+                Command="{Binding SaveCommand}"
+                Style="{StaticResource NormalButtonStyle}">
+                <Button.Content>
+                    <TextBlock
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource NormalGreenTextBlock}"
+                        Text="Save"
+                        TextWrapping="Wrap" />
+                </Button.Content>
+            </Button>
+        </controls:UniformGrid>
+
+    </Grid>
+</Page>

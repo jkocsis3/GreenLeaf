@@ -1,0 +1,113 @@
+﻿<Page
+    x:Class="GreenLeaf.UWP.Views.GardenCollectionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GreenLeaf.UWP.Views"
+    xmlns:viewModel="using:GreenLeaf.Core.ViewModels"
+    xmlns:utilities="using:GreenLeaf.UWP.Utilities"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    d:DesignHeight="400"
+    d:DesignWidth="400">
+    <Page.DataContext>
+        <viewModel:GardenCollectionViewModel/>
+    </Page.DataContext>
+    <Page.Resources>        
+        <utilities:BoolToVisibilltyConverter x:Key="BoolToVis"/>       
+    </Page.Resources>
+
+    <RelativePanel >
+        <ListView Name="GardensListView" 
+                  Grid.Column="1"
+                  Grid.Row="0"
+                  ItemsSource="{Binding Model, UpdateSourceTrigger=PropertyChanged}"
+                  RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.AlignRightWithPanel="True"
+                  RelativePanel.AlignVerticalCenterWithPanel="True"
+                  RelativePanel.AlignHorizontalCenterWithPanel="True"
+                  SelectionMode="None"                  
+                  SelectedItem="{Binding SelectedGarden, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Garden.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   Style="{StaticResource HeaderGreenTextBlock}"
+                                   HorizontalTextAlignment="Center"/>
+
+                        <ListView ItemsSource="{Binding Plants, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BoolToVis}}"
+                                  SelectedItem="{Binding SelectedPlant, UpdateSourceTrigger=PropertyChanged}" 
+                                  SelectionChanged="OnPlantSelected">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="DarkOliveGreen"
+                                            BorderThickness="2"
+                                            CornerRadius="5"
+                                            Height="100"
+                                            Width="100"
+                                            Background="DarkOliveGreen"
+                                            Margin="5">
+                                        <TextBlock Text="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                   Style="{StaticResource SelectableListviewItemNameStyle}"
+                                                   TextWrapping="WrapWholeWords"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <controls:UniformGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Click="AddGardenCLick"
+                RelativePanel.Below="GardensListView"
+                RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.AlignRightWithPanel="True"
+                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                Name="AddButton"
+                       Content="Add"
+                Style="{StaticResource StrainButtonStyle}"/>
+        <VariableSizedWrapGrid Name="AddGardenStackPanel"
+                               Visibility="Collapsed"
+                               RelativePanel.Below="AddButton"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.AlignRightWithPanel="True"
+                               RelativePanel.AlignHorizontalCenterWithPanel="True"
+                               RelativePanel.AlignVerticalCenterWithPanel="True"
+                               VerticalAlignment="Top"
+                               MaximumRowsOrColumns="6"
+                               Orientation="Horizontal">
+            <TextBlock Text="Name"
+                       Style="{StaticResource NormalGreenTextBlock}"
+                       VariableSizedWrapGrid.ColumnSpan="1"/>
+            <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource NormalGreenTextBox}"
+                     FontSize="16"
+                     VariableSizedWrapGrid.ColumnSpan="4"
+                     Name="NameTextBlock"
+                     HorizontalAlignment="Stretch"/>
+            <Button Click="AddNameCLick"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center">
+                <Button.Content>
+                    <TextBlock Text="+"
+                               Style="{StaticResource HeaderGreenTextBlock}"
+                               VariableSizedWrapGrid.ColumnSpan="1"
+                               VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+
+
+        </VariableSizedWrapGrid>
+    </RelativePanel>
+</Page>

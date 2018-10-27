@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="GreenLeaf.Resources.Styles"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--  Plant View  -->
+    <Style x:Key="PlatViewNormalLabel" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+        <Setter Property="VerticalOptions" Value="Start" />
+        <Setter Property="TextColor" Value="Green" />
+        <Setter Property="FontSize" Value="Medium" />
+    </Style>
+
+    <Style x:Key="PlantViewHighlightedFrame" TargetType="Frame">
+        <Setter Property="OutlineColor" Value="Green" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <!--  Schedule View  -->
+    <Style x:Key="ScheduleLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="Micro" />
+        <Setter Property="TextColor" Value="Green" />
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+    </Style>
+
+    <Style x:Key="ScheduleTitle" TargetType="Label">
+        <Setter Property="FontSize" Value="Large" />
+        <Setter Property="TextColor" Value="Green" />
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+    </Style>
+
+    <Style x:Key="ScheduleFrame" TargetType="Frame">
+        <Setter Property="BorderColor" Value="Black" />
+        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        <Setter Property="VerticalOptions" Value="FillAndExpand" />
+    </Style>
+
+    <!--  Menu Items  -->
+    <Style x:Key="MenuHeaderStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="Large" />
+        <Setter Property="TextColor" Value="AntiqueWhite" />
+        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+    </Style>
+
+    <Style x:Key="MenuItemStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="Large" />
+        <Setter Property="TextColor" Value="Green" />
+        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+    </Style>
+    
+    <!--Generic Styles-->
+    <Style x:Key="ListViewStyle" TargetType="ListView">
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Start" />
+
+    </Style>
+    
+    
+    <!--Plants Collection Styles-->
+    
+    <Style x:Key="Collectionabel" TargetType="Label">
+        <Setter Property="FontSize" Value="Micro" />
+        <Setter Property="TextColor" Value="Green" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+</ResourceDictionary>
